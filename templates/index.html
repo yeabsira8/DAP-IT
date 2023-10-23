@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Day-ahead Prices for the Netherlands</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" />
+    <style>
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        background-color: #335145;
+      }
+
+      .container {
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        padding: 2%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+      }
+
+      h2 {
+        margin-top: 0;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      label {
+        font-weight: 600;
+        margin-right: 10px;
+      }
+
+      input[type="date"] {
+        padding: 4px;
+        border-radius: 5px;
+        margin-right: 10px;
+        text-align: center;
+      }
+
+      input[type="submit"] {
+        padding: 8px 14px;
+        margin-left: 3%;
+        text-align: center;
+        border: none;
+        border-radius: 25px;
+        background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+        background-blend-mode: multiply;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      input[type="submit"]:hover {
+        background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+      }
+
+      .plot {
+        margin-left: 4%;
+        margin-right: 4%;
+      }
+
+      /* Responsive Styles */
+      @media screen and (max-width: 767px) {
+        .container {
+        padding: 2%;
+        }
+
+        h2 {
+          font-size: 1.3rem;
+        }
+
+        form {
+          flex-direction: column;
+        }
+
+        label {
+          margin-bottom: 10px;
+        }
+
+        input[type="date"] {
+          margin-bottom: 10px;
+        }
+      }
+
+
+      .button-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        
+      }
+
+      .custom-button {
+          background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+          color: #fff;
+          border: none;
+          border-radius: 25px;
+          padding: 12px 12px;
+          font-size: 14px;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 5%;
+      }
+
+      .custom-button:hover {
+         transform: translateY(-2px);
+         box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .statistics {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        margin-left: 35%;
+        margin-right: 35%;
+        text-align: center;
+      }
+
+      .statistics p {
+        margin: 5px 0;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Day-Ahead Prices - NL</h2>
+      <hr>
+      <form action="/" method="POST">
+        <label for="start">Start Date:</label>
+        <input type="date" id="start" name="start" value="{{ start.date().isoformat() }}" />
+        <label for="end">End Date:</label>
+        <input type="date" id="end" name="end" value="{{ end.date().isoformat() }}" />
+        <input type="submit" value="Get Prices" />
+      </form>
+      
+    </div>
+    {% if plot %}
+      <!-- Display the plot if available -->
+      <div class="plot">{{ plot|safe }}</div>
+      
+      <div class="button-container text-center">
+        <form action="/download" method="get" class="d-inline">
+          <input type="hidden" name="start" value="{{ start.strftime('%Y-%m-%d') }}">
+          <input type="hidden" name="end" value="{{ end.strftime('%Y-%m-%d') }}">
+          <button type="submit" class="custom-button">Download as CSV</button>
+        </form>
+      </div>
+      
+      {% endif %}
+    
+    
+  </body>
+</html>
+
