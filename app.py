@@ -27,12 +27,12 @@ def calculate_statistics(prices):
 
 def index():
     if request.method == 'POST':
-        start_date = pd.Timestamp(request.form['start'], tz='Europe/Amsterdam')
-        end_date = pd.Timestamp(request.form['end'], tz='Europe/Amsterdam')
+        start_date = pd.Timestamp(request.form['start'], tz='Europe/Rome')
+        end_date = pd.Timestamp(request.form['end'], tz='Europe/Rome')
 
 
-        # query the ENTSO-E API for day-ahead prices for the Netherlands
-        country_code = 'NL'
+        # query the ENTSO-E API for day-ahead prices for the Italy
+        country_code = 'IT_CSUD'
         ts = client.query_day_ahead_prices(country_code, start=start_date, end=end_date)
 
         def download():
@@ -108,19 +108,19 @@ def index():
                                start=start_date, end=end_date, show_stats=True)
 
     else:
-        start_date = pd.Timestamp('2023-01-01', tz='Europe/Amsterdam')
-        end_date = pd.Timestamp('2023-01-02', tz='Europe/Amsterdam')
+        start_date = pd.Timestamp('2023-01-01', tz='Europe/Rome')
+        end_date = pd.Timestamp('2023-01-02', tz='Europe/Rome')
         return render_template('index.html', start=start_date, end=end_date, show_stats=False)
     
     # define a route for downloading the CSV file
 @app.route('/download')
 def download_csv():
     # get the start and end dates from the query parameters
-    start = pd.Timestamp(request.args.get('start'), tz='Europe/Amsterdam')
-    end = pd.Timestamp(request.args.get('end'), tz='Europe/Amsterdam')
+    start = pd.Timestamp(request.args.get('start'), tz='Europe/Rome')
+    end = pd.Timestamp(request.args.get('end'), tz='Europe/Rome')
 
-    # query the ENTSO-E API for day-ahead prices for the Netherlands
-    country_code = 'NL'
+    # query the ENTSO-E API for day-ahead prices for the Italy
+    country_code = 'IT_CSUD'
     type_market_agreement_type = 'A01'
     contract_market_agreement_type = "A01"
     ts = client.query_day_ahead_prices(country_code, start=start, end=end)
