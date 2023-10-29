@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'dap-it'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4D6041CDE2354379AB93A6D1B8CC5538 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A3BBC0EC8D604438ABB12343C592A64D }}
